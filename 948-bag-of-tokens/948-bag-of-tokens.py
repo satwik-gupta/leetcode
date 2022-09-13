@@ -2,7 +2,7 @@ class Solution:
     def bagOfTokensScore(self, tokens: List[int], power: int) -> int:
         score = 0
         maximumScore = 0
-        tokens.sort()    
+        tokens.sort()    #sorting the tokens
 
         while(tokens):
             if(power>=tokens[0]):
