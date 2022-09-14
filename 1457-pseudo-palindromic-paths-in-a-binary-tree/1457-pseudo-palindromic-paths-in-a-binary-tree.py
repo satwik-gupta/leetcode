@@ -6,12 +6,26 @@
 #         self.right = right
 class Solution:
     def pseudoPalindromicPaths (self, root: Optional[TreeNode],count=0) -> int:
-        if root is None:
-            return 0
-        count ^= 1 << (root.val - 1)
-        if root.left is None and root.right is None:
-            if count & (count - 1) == 0:
-                return 1
-            else:
+        def traverse(node, pairs):
+            if not node:
                 return 0
-        return self.pseudoPalindromicPaths(root.left, count) + self.pseudoPalindromicPaths(root.right, count)
+            
+            if node.val in pairs:
+                pairs.remove(node.val)
+            else:
+                pairs.add(node.val)
+            
+            if not node.left and not node.right:
+                return 1 if len(pairs) <= 1 else 0
+            
+            # correct!!
+            left = traverse(node.left, set(pairs))
+            right = traverse(node.right, set(pairs))
+            
+            # wrong, becasue pairs will change after we traversed node.left or node.right!
+            # left = traverse(node.left, pairs)
+            # right = traverse(node.right, pairs)
+            
+            return left + right
+        
+        return traverse(root, set())
