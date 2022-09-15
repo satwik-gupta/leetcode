@@ -8,4 +8,7 @@ class Solution:
                 ans.append(heapq.heappop(hq))
             else:
                 heapq.heappush(hq, changed[i]) 
-        return ans if not hq else []
+        if not hq:
+            return ans
+        else:
+            return []
