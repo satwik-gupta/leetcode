@@ -7,11 +7,9 @@ class Solution:
             if(s[i]==s[j]):
                 if(nt[i]>=nt[j]):
                     x+=nt[j]
-                    print(nt[j])
                     j+=1
                 else:
                     x+=nt[i]
-                    print(nt[i])
                     i=j
                     j+=1
                     
