@@ -1,6 +1,5 @@
 class Solution:
     def minCost(self, s: str, nt: List[int]) -> int:
-        s=list(s)
         i=0
         j=1
         x=0
