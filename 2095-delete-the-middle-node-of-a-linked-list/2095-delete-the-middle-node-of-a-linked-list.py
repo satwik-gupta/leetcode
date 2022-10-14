@@ -8,7 +8,8 @@ class Solution:
         if not head.next: 
             return None
 
-        ptr1, ptr2 = head.next, head                                       
+        ptr1=head.next
+        ptr2=head                                       
 
         while ptr1.next and ptr1.next.next:
             ptr1 = ptr1.next.next
