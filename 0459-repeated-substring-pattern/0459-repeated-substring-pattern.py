@@ -6,7 +6,5 @@ class Solution:
                 rep=int(len(s)//(i+1))
                 if((res*rep)==s and rep!=1):
                     return True
-            else:
-                continue
         return False
                 
