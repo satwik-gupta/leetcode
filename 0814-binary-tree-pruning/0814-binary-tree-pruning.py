@@ -13,9 +13,10 @@ class Solution:
             left,right=dfs(root.left),dfs(root.right)
             if left:
                 root.left= None
+                gc.collect()
             if right:
                 root.right= None
-            gc.collect()
+                gc.collect()
             return left and right and root.val==0
         if not dfs(root):
             return root
