@@ -7,12 +7,20 @@ class TreeNode:
 class Solution:
     def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:
         root3= TreeNode()
-        if(root1==None):
-            return root2
-        if(root2==None):
-            return root1
-        root3.val=root1.val+root2.val
-        root3.left= self.mergeTrees(root1.left,root2.left)
-        root3.right=self.mergeTrees(root1.right,root2.right)
+        if(root1!=None and root2!=None):
+            root3.val=root1.val+root2.val
+            root3.left= self.mergeTrees(root1.left,root2.left)
+            root3.right=self.mergeTrees(root1.right,root2.right)
+        elif(root1==None and  root2):
+            root3.val=root2.val
+            root3.left=self.mergeTrees(None,root2.left)
+            root3.right=self.mergeTrees(None,root2.right)
+        elif(root2==None and root1):
+            root3.val=root1.val
+            root3.left=self.mergeTrees(root1.left,None)
+            root3.right=self.mergeTrees(root1.right,None)
+        else:
+            return None
+        
         return root3
             
