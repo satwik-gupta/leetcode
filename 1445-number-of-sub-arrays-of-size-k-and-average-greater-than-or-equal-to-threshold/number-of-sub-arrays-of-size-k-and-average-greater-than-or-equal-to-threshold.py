@@ -5,7 +5,7 @@ class Solution:
         curr_sum=sum(arr[:k-1])
         for r in range(k-1,len(arr)):
             curr_sum+=arr[r]
-            if(curr_sum/k>=threshold):
+            if(curr_sum>=threshold*k):
                 count+=1
             curr_sum-=arr[l]
             l+=1
