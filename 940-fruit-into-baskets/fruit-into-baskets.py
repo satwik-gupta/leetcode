@@ -1,7 +1,5 @@
 class Solution:
     def totalFruit(self, fruits: List[int]) -> int:
-        if(len(fruits))==1:
-            return 1
         l=0
         hashmap={}
         count=0
