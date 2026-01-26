@@ -4,11 +4,9 @@ class Solution:
         r=1
         k=1
         while(r<len(nums)):
-            if(nums[l]==nums[r]):
-                r+=1
-            else:
+            if(nums[l]!=nums[r]):
                 l+=1
                 nums[l]=nums[r]
-                r+=1
                 k+=1
+            r+=1   
         return k
