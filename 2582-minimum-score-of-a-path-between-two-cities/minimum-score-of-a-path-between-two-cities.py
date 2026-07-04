@@ -13,14 +13,11 @@ class Solution:
 
         while queue:
             city =queue.popleft()
-            for next_city,distance in graph[city]:
-                answer=min(answer,distance)
+            for next_city, distance in graph[city]:
+                answer = min(answer, distance)
 
                 if not visited[next_city]:
-                    answer=min(answer,distance)
-
-                    if not visited[next_city]:
-                        visited[next_city]=True
-                        queue.append(next_city)
+                    visited[next_city] = True
+                    queue.append(next_city)
 
         return answer
