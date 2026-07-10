@@ -1,28 +1,39 @@
+from typing import List
+
 class Solution:
     def pathExistenceQueries(
         self, n: int, nums: List[int], maxDiff: int, queries: List[List[int]]
     ) -> List[int]:
-        idx = sorted(range(n), key=lambda i: nums[i])
+        # 1. Faster sorting using C-level __getitem__ instead of a lambda
+        idx = sorted(range(n), key=nums.__getitem__)
+        
+        # 2. Populate pos array
         pos = [0] * n
         for i, v in enumerate(idx):
             pos[v] = i
 
         m = n.bit_length()
-        f = [[0] * m for _ in range(n)]
-
+        
+        # 3. Build the first layer (j = 0) of our sparse table
+        f0 = [0] * n
         left = 0
         for i in range(n):
             while left < i and nums[idx[i]] - nums[idx[left]] > maxDiff:
                 left += 1
-            f[i][0] = left
+            f0[i] = left
 
-        for j in range(1, m):
-            for i in range(n):
-                f[i][j] = f[f[i][j - 1]][j - 1]
+        # 4. Transposed binary lifting table: f[j][i] instead of f[i][j]
+        # This enables list comprehensions which run at C-speed in Python.
+        f = [f0]
+        for _ in range(1, m):
+            prev = f[-1]
+            f.append([prev[p] for p in prev])
 
         res = []
-        for query in queries:
-            x, y = pos[query[0]], pos[query[1]]
+        # 5. Direct tuple unpacking in loops to avoid repeated indexing
+        for u, v in queries:
+            x, y = pos[u], pos[v]
+            
             if x > y:
                 x, y = y, x
 
@@ -31,12 +42,13 @@ class Solution:
                 continue
 
             step = 0
+            # 6. Binary lifting step
             for i in range(m - 1, -1, -1):
-                if f[y][i] > x:
-                    y = f[y][i]
+                if f[i][y] > x:
+                    y = f[i][y]
                     step += 1 << i
 
-            if f[y][0] <= x:
+            if f[0][y] <= x:
                 res.append(step + 1)
             else:
                 res.append(-1)
