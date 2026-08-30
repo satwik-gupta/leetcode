@@ -11,6 +11,4 @@ class Solution:
             if(nums[i]<mini):
                 mini=nums[i]
                 b=i
-        print(a,b)
-
         return min(n-abs(a-b),max(a,b),max(n-a,n-b)-1)+1
