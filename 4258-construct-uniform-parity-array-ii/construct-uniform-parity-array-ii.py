@@ -8,8 +8,6 @@ class Solution:
                 odd=True
                 lowestodd=nums1[i]
                 break
-        if(odd and lowestodd==nums1[0]):
-            return True
-        if not odd:
+        if(odd and lowestodd==nums1[0]) or not odd:
             return True
         return False
